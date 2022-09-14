@@ -1,4 +1,5 @@
 package practice.lab2;
+
 public class Employee {
 
     private Long id;

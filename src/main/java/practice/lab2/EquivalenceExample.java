@@ -19,7 +19,7 @@ public class EquivalenceExample {
 
         Map<Employee, Integer> map = new HashMap<>();
         Integer count;
-        for(Employee e : employeeList){
+        for (Employee e : employeeList) {
             if ((count = map.get(e)) == null) {
                 map.put(e, 1);
             } else {

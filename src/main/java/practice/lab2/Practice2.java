@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Practice2 {
     @State(Scope.Thread)
-    public static class MyState{
+    public static class MyState {
         int[] arrayImpl;
         List<Integer> arraylistImpl;
         List<Integer> linkedlistImpl;
@@ -31,10 +31,12 @@ public class Practice2 {
 
             index = new Random().nextInt(LENGTH) + OFFSET;
 
-            for(int i = OFFSET; i<OFFSET+LENGTH;i++){
-                int age = new Random().nextInt(18,22);
+            for (int i = OFFSET; i < OFFSET + LENGTH; i++) {
+                int age = 18 + new Random().nextInt(4);
                 intmapImpl.put(i, age);
-                // TODO: initialize arrayImpl, arraylistImpl and linkedlistImpl
+                linkedlistImpl.add(age);
+                arraylistImpl.add(age);
+                arrayImpl[i - OFFSET] = age;
             }
 
         }
@@ -43,30 +45,27 @@ public class Practice2 {
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testintmap(MyState state){
+    public static int testintmap(MyState state) {
         return state.intmapImpl.get(state.index);
     }
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testarraylist(MyState state){
-        // TODO return the age by state.index
-        return 0;
+    public static int testarraylist(MyState state) {
+        return state.arraylistImpl.get(state.index - state.OFFSET);
     }
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testlinkedlist(MyState state){
-        // TODO return the age by state.index
-        return 0;
+    public static int testlinkedlist(MyState state) {
+        return state.linkedlistImpl.get(state.index - state.OFFSET);
     }
 
 
     @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testarray(MyState state){
-        // TODO return the age by state.index
-        return 0;
+    public static int testarray(MyState state) {
+        return state.arrayImpl[state.index - state.OFFSET];
     }
 
 
