@@ -2,12 +2,12 @@ package practice.lab3;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class Practice3Test {
@@ -22,7 +22,7 @@ public class Practice3Test {
     }
 
     @Test
-    public void test(){
+    public void test() {
 
         String res = "Please input the function No:\n" +
                 "1 - Get even numbers\n" +
@@ -79,13 +79,12 @@ public class Practice3Test {
                 "2 - Get odd numbers\n" +
                 "3 - Get prime numbers\n" +
                 "4 - Get prime numbers that are bigger than 5\n" +
-                "0 - Quit"
-                ;
+                "0 - Quit";
 
         System.setIn(new ByteArrayInputStream(a1.getBytes()));
         Practice3Answer.main(null);
         assertEquals(res.replace("\n", "")
-                .replace("\r", ""),outContent.toString().replace("\n", "")
+                .replace("\r", ""), outContent.toString().replace("\n", "")
                 .replace("\r", ""));
     }
 }
