@@ -5,12 +5,14 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 
 public class Practice3Answer {
-    static String functionNo = "Please input the function No:\n" +
-            "1 - Get even numbers\n" +
-            "2 - Get odd numbers\n" +
-            "3 - Get prime numbers\n" +
-            "4 - Get prime numbers that are bigger than 5\n" +
-            "0 - Quit\n";
+    static String functionNo = """
+            Please input the function No:
+            1 - Get even numbers
+            2 - Get odd numbers
+            3 - Get prime numbers
+            4 - Get prime numbers that are bigger than 5
+            0 - Quit
+            """;
 
     public static void main(String[] args) {
 
@@ -21,21 +23,14 @@ public class Practice3Answer {
         while (true) {
             System.out.println(functionNo);
             switch (scanner.nextInt()) {
-                case 1:
-                    integerPredicate = i -> i % 2 == 0;
-                    break;
-                case 2:
-                    integerPredicate = i -> i % 2 == 1;
-                    break;
-                case 3:
-                    integerPredicate = i -> isPrime(i);
-                    break;
-                case 4:
-                    integerPredicate = i -> isPrime(i);
+                case 1 -> integerPredicate = i -> i % 2 == 0;
+                case 2 -> integerPredicate = i -> i % 2 == 1;
+                case 3 -> integerPredicate = Practice3Answer::isPrime;
+                case 4 -> {
+                    integerPredicate = Practice3Answer::isPrime;
                     integerPredicate = integerPredicate.and(i -> i > 5);
-                    break;
-                default:
-                    terminal = true;
+                }
+                default -> terminal = true;
             }
             if (terminal) break;
 
