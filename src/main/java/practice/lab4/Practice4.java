@@ -1,7 +1,6 @@
 package practice.lab4;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -46,7 +45,7 @@ public class Practice4 {
                 .map(a -> new City(a[0], a[1], Integer.parseInt(a[2])));
     }
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException {
 
         Stream<City> cities = readCities("src/main/java/practice/lab4/cities.txt");
         // Q1: count how many cities there are for each state
@@ -61,6 +60,7 @@ public class Practice4 {
         cities = readCities("src/main/java/practice/lab4/cities.txt");
         // Q3: for each state, get the set of cities with >500,000 population
         Map<String, Set<City>> largeCitiesByState = cities.collect(Collectors.groupingBy(City::getState, Collectors.filtering(city -> city.getPopulation() > 500000, Collectors.toSet())));
-        System.out.println("cities with >500,000 population for each state:\n" + largeCitiesByState);
+        System.out.println("cities with >500,000 population for each state:");
+        largeCitiesByState.forEach((str, set) -> System.out.println(str + ": " + set));
     }
 }
