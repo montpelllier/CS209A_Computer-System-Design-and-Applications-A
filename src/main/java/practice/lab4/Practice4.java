@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -37,6 +40,10 @@ public class Practice4 {
             return population;
         }
 
+        public String toString() {
+            return String.format("City{name=\'%s\', state=\'%s\', population=%d}", name, state, population);
+        }
+
     }
 
     public static Stream<City> readCities(String filename) throws IOException
@@ -48,19 +55,19 @@ public class Practice4 {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
 
-        Stream<City> cities = readCities("cities.txt");
+        Stream<City> cities = readCities("src/main/java/practice/lab4/cities.txt");
         // Q1: count how many cities there are for each state
-        // TODO: Map<String, Long> cityCountPerState = ...
+        Map<String, Long> cityCountPerState = cities.collect(Collectors.groupingBy(City::getState, Collectors.counting()));
+        System.out.println("# of cities per state:\n" + cityCountPerState + '\n');
 
-
-        cities = readCities("cities.txt");
+        cities = readCities("src/main/java/practice/lab4/cities.txt");
         // Q2: count the total population for each state
-        // TODO: Map<String, Integer> statePopulation = ...
+        Map<String, Integer> statePopulation = cities.collect(Collectors.groupingBy(City::getState, Collectors.summingInt(City::getPopulation)));
+        System.out.println("population per state:\n" + statePopulation + '\n');
 
-
-        cities = readCities("cities.txt");
+        cities = readCities("src/main/java/practice/lab4/cities.txt");
         // Q3: for each state, get the set of cities with >500,000 population
-        // TODO: Map<String, Set<City>> largeCitiesByState = ...
-
+        Map<String, Set<City>> largeCitiesByState = cities.collect(Collectors.groupingBy(City::getState, Collectors.filtering(city -> city.getPopulation() > 500000, Collectors.toSet())));
+        System.out.println("cities with >500,000 population for each state:\n" + largeCitiesByState);
     }
 }
