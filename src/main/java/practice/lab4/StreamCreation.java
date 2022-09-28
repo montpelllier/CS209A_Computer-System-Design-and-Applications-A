@@ -9,7 +9,7 @@ public class StreamCreation {
     public static void main(String[] args) {
 
         //create a stream of a fixed number of integers.
-        Stream.of(1,2,3).forEach(System.out::println);
+        Stream.of(1, 2, 3).forEach(System.out::println);
         //output:
         //1
         //2
@@ -30,15 +30,15 @@ public class StreamCreation {
         //2
         //3
 
-        int[] array = new int[]{1,2,3};
-        Arrays.stream(array).map(n->n*n).average().ifPresent(System.out::println);
+        int[] array = new int[]{1, 2, 3};
+        Arrays.stream(array).map(n -> n * n).average().ifPresent(System.out::println);
         //output:
         //4.666666666666667
 
-        Stream.of(array).map(n->{
+        Stream.of(array).map(n -> {
             double sum = 0;
-            for (int a:n) {
-                sum += a*a;
+            for (int a : n) {
+                sum += a * a;
             }
             return sum / n.length;
         }).forEach(System.out::println);
@@ -50,7 +50,7 @@ public class StreamCreation {
         arrayList.add(1);
         arrayList.add(2);
         arrayList.add(3);
-        arrayList.stream().map(n->n*n).reduce((i,j)->i+j).ifPresent(System.out::println);
+        arrayList.stream().map(n -> n * n).reduce((i, j) -> i + j).ifPresent(System.out::println);
         //output:
         //14
 

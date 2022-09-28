@@ -25,9 +25,9 @@ public class StreamProcessingOrder {
         //forEach: A
 
         Stream.of("CS", "209", "A").map(s -> {
-            System.out.println("map: " + s);
-            return s.toLowerCase();
-        })
+                    System.out.println("map: " + s);
+                    return s.toLowerCase();
+                })
                 .anyMatch(s -> {
                     System.out.println("anyMatch: " + s);
                     return s.startsWith("c");

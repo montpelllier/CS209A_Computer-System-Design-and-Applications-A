@@ -1,7 +1,6 @@
 package practice.lab4;
 
 import java.io.IOException;
-
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,42 +11,36 @@ import java.util.stream.Stream;
 
 
 public class Practice4 {
-    public static class City
-    {
-        private String name;
-        private String state;
-        private int population;
+    public static class City {
+        private final String name;
+        private final String state;
+        private final int population;
 
-        public City(String name, String state, int population)
-        {
+        public City(String name, String state, int population) {
             this.name = name;
             this.state = state;
             this.population = population;
         }
 
-        public String getName()
-        {
+        public String getName() {
             return name;
         }
 
-        public String getState()
-        {
+        public String getState() {
             return state;
         }
 
-        public int getPopulation()
-        {
+        public int getPopulation() {
             return population;
         }
 
         public String toString() {
-            return String.format("City{name=\'%s\', state=\'%s\', population=%d}", name, state, population);
+            return String.format("City{name='%s', state='%s', population=%d}", name, state, population);
         }
 
     }
 
-    public static Stream<City> readCities(String filename) throws IOException
-    {
+    public static Stream<City> readCities(String filename) throws IOException {
         return Files.lines(Paths.get(filename))
                 .map(l -> l.split(", "))
                 .map(a -> new City(a[0], a[1], Integer.parseInt(a[2])));
