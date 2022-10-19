@@ -24,11 +24,9 @@ public class Practice6 {
         fileList.add(name);
       }
     }
-    System.out.println("# of .java files in java.io/java.nio: " + fileList.size());
-    for (String name : fileList) {
-      System.out.println(name);
-    }
 
+    System.out.println("# of .java files in java.io/java.nio: " + fileList.size());
+    fileList.forEach(System.out::println);
   }
 
   public static void readJar(String path) throws IOException {
@@ -42,10 +40,9 @@ public class Practice6 {
         fileList.add(name);
       }
     }
+
     System.out.println("# of .class files in java.io/java.nio: " + fileList.size());
-    for (String name : fileList) {
-      System.out.println(name);
-    }
+    fileList.forEach(System.out::println);
   }
 
   public static void main(String[] args) {
