@@ -25,7 +25,7 @@ public class MovieAnalyzerLocalTest {
     private static Class<?> movieAnalyzerClass;
     private static Object imdbTop;
 
-    private static String head = "src/main/resources";
+    private static final String head = "src/main/resources";
 
     @BeforeAll
     static void setUp() {
@@ -112,16 +112,16 @@ public class MovieAnalyzerLocalTest {
         for (String row : rows) {
             String[] strings = row.split(" == ");
             switch (question) {
-                case 1:
+                case 1 -> {
                     int key1 = Integer.parseInt(strings[0]);
                     int value1 = Integer.parseInt(strings[1]);
                     expectedList.add((Item<K, V>) new Item<>(key1, value1));
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     String key2 = strings[0];
                     Integer value2 = Integer.parseInt(strings[1]);
                     expectedList.add((Item<K, V>) new Item<>(key2, value2));
-                    break;
+                }
             }
         }
         if (objMap.size() != expectedList.size()) {
