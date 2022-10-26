@@ -3,16 +3,23 @@ package practice.lab7;
 
 public class DepositThread implements Runnable {
 
-	private Account account;
-	private double money;
+  private final Account account;
+  private final double money;
 
-	public DepositThread(Account account, double money) {
-		this.account = account;
-		this.money = money;
-	}
+  private final boolean isLock;
 
-	@Override
-	public void run() {
-		account.deposit(money);
-	}
+  public DepositThread(Account account, double money, boolean isLock) {
+    this.account = account;
+    this.money = money;
+    this.isLock = isLock;
+  }
+
+  @Override
+  public void run() {
+    if (isLock) {
+      account.depositLock(money);
+    } else {
+      account.depositSync(money);
+    }
+  }
 }
