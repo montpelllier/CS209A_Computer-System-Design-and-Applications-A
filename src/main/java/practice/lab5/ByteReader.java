@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.nio.file.Paths;
 
 
@@ -14,7 +13,7 @@ public class ByteReader {
 
 	public static void main(String[] args) throws URISyntaxException {
 
-		URI uri = ByteReader.class.getClassLoader().getResource("sample.txt").toURI();
+		URI uri = ByteReader.class.getClassLoader().getResource("a1/sample.txt").toURI();
 		String filePath = Paths.get(uri).toString();
 
 

@@ -1,7 +1,6 @@
 package practice.lab5;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.nio.file.Paths;
 public class BufferReader {
 
 	public static void main(String[] args) throws URISyntaxException {
-		URI uri = BufferReader.class.getClassLoader().getResource("sample.txt").toURI();
+		URI uri = BufferReader.class.getClassLoader().getResource("a1/sample.txt").toURI();
 		String filePath = Paths.get(uri).toString();
 
 		try (FileInputStream fis = new FileInputStream(filePath);

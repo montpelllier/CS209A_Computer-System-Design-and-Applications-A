@@ -46,8 +46,9 @@ public class Practice6 {
   }
 
   public static void main(String[] args) {
-    String zipPath = "src/main/java/practice/lab6/src.zip";
-    String jarPath = "src/main/java/practice/lab6/rt.jar";
+
+    String zipPath = "src/main/resources/lab6/src.zip";
+    String jarPath = "src/main/resources/lab6/rt.jar";
     try {
       readZip(zipPath);
       readJar(jarPath);
