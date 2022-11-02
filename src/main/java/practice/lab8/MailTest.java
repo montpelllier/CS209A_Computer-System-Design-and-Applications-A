@@ -47,12 +47,12 @@ public class MailTest {
 
     Session mailSession = Session.getDefaultInstance(props);
     MimeMessage message = new MimeMessage(mailSession);
-    // TODO 1: check the MimeMessage API to figure out how to set the sender, receiver, subject, and email body
+    // check the MimeMessage API to figure out how to set the sender, receiver, subject, and email body
     message.setFrom(from);
     message.setRecipients(RecipientType.TO, to);
     message.setSubject(subject);
     message.setText(builder.toString());
-    // TODO 2: check the Session API to figure out how to connect to the mail server and send the message
+    // check the Session API to figure out how to connect to the mail server and send the message
     Transport transport = mailSession.getTransport();
     transport.connect(from, password);
     transport.sendMessage(message, message.getAllRecipients());
