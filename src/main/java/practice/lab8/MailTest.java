@@ -8,22 +8,27 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
 
 public class MailTest {
 
+  static String head = "src/main/resources/";
+
   public static void main(String[] args) throws MessagingException, IOException {
     // read properties
     Properties props = new Properties();
-    try (InputStream in = Files.newInputStream(Paths.get("lab8/mail.properties"))) {
+    try (InputStream in = Files.newInputStream(Paths.get(head + "lab8/mail.properties"))) {
       props.load(in);
     }
 
     // read message info
-    List<String> lines = Files.readAllLines(Paths.get("lab8/message.txt"), StandardCharsets.UTF_8);
+    List<String> lines = Files.readAllLines(Paths.get(head + "lab8/message.txt"),
+        StandardCharsets.UTF_8);
 
     String from = lines.get(0);
     String to = lines.get(1);
@@ -43,8 +48,13 @@ public class MailTest {
     Session mailSession = Session.getDefaultInstance(props);
     MimeMessage message = new MimeMessage(mailSession);
     // TODO 1: check the MimeMessage API to figure out how to set the sender, receiver, subject, and email body
-
+    message.setFrom(from);
+    message.setRecipients(RecipientType.TO, to);
+    message.setSubject(subject);
+    message.setText(builder.toString());
     // TODO 2: check the Session API to figure out how to connect to the mail server and send the message
-
+    Transport transport = mailSession.getTransport();
+    transport.connect(from, password);
+    transport.sendMessage(message, message.getAllRecipients());
   }
 }

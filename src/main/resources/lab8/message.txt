@@ -1,5 +1,5 @@
-sender@somedomain.com
-recipient@recipientdomain.com
+11811525@mail.sustech.edu.cn
+11811525@mail.sustech.edu.cn
 Test sending email using JavaMail
 Dear all:
 
