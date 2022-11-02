@@ -1,83 +1,94 @@
 package practice.lab2;
 
-import org.openjdk.jmh.annotations.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 public class Practice2 {
-    @State(Scope.Thread)
-    public static class MyState {
-        int[] arrayImpl;
-        List<Integer> arraylistImpl;
-        List<Integer> linkedlistImpl;
-        HashMap<Integer, Integer> intmapImpl;
 
-        int LENGTH = 1000;
-        int OFFSET = 12010001;
+  @State(Scope.Thread)
+  public static class MyState {
 
-        int index;
+    int[] arrayImpl;
+    List<Integer> arraylistImpl;
+    List<Integer> linkedlistImpl;
+    HashMap<Integer, Integer> intmapImpl;
 
-        @Setup(Level.Iteration)
-        public void setUp() {
-            arrayImpl = new int[LENGTH];
-            arraylistImpl = new ArrayList<>();
-            linkedlistImpl = new LinkedList<>();
-            intmapImpl = new HashMap<>();
+    int LENGTH = 1000;
+    int OFFSET = 12010001;
 
-            index = new Random().nextInt(LENGTH) + OFFSET;
+    int index;
 
-            for (int i = OFFSET; i < OFFSET + LENGTH; i++) {
-                int age = 18 + new Random().nextInt(4);
-                intmapImpl.put(i, age);
-                linkedlistImpl.add(age);
-                arraylistImpl.add(age);
-                arrayImpl[i - OFFSET] = age;
-            }
+    @Setup(Level.Iteration)
+    public void setUp() {
+      arrayImpl = new int[LENGTH];
+      arraylistImpl = new ArrayList<>();
+      linkedlistImpl = new LinkedList<>();
+      intmapImpl = new HashMap<>();
 
-        }
+      index = new Random().nextInt(LENGTH) + OFFSET;
+
+      for (int i = OFFSET; i < OFFSET + LENGTH; i++) {
+        int age = 18 + new Random().nextInt(4);
+        intmapImpl.put(i, age);
+        linkedlistImpl.add(age);
+        arraylistImpl.add(age);
+        arrayImpl[i - OFFSET] = age;
+      }
 
     }
 
-    @Benchmark
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testintmap(MyState state) {
-        return state.intmapImpl.get(state.index);
-    }
+  }
 
-    @Benchmark
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testarraylist(MyState state) {
-        return state.arraylistImpl.get(state.index - state.OFFSET);
-    }
+  @Benchmark
+  @OutputTimeUnit(TimeUnit.NANOSECONDS)
+  public static int testintmap(MyState state) {
+    return state.intmapImpl.get(state.index);
+  }
 
-    @Benchmark
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testlinkedlist(MyState state) {
-        return state.linkedlistImpl.get(state.index - state.OFFSET);
-    }
+  @Benchmark
+  @OutputTimeUnit(TimeUnit.NANOSECONDS)
+  public static int testarraylist(MyState state) {
+    return state.arraylistImpl.get(state.index - state.OFFSET);
+  }
 
-
-    @Benchmark
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public static int testarray(MyState state) {
-        return state.arrayImpl[state.index - state.OFFSET];
-    }
+  @Benchmark
+  @OutputTimeUnit(TimeUnit.NANOSECONDS)
+  public static int testlinkedlist(MyState state) {
+    return state.linkedlistImpl.get(state.index - state.OFFSET);
+  }
 
 
-    public static void main(String[] args) throws RunnerException {
-        Options options = new OptionsBuilder()
-                .include(Practice2.class.getSimpleName())
-                .measurementIterations(3)
-                .warmupIterations(1)
-                .mode(Mode.AverageTime)
-                .forks(1)
-                .shouldDoGC(true)
-                .build();
-        new Runner(options).run();
-    }
+  @Benchmark
+  @OutputTimeUnit(TimeUnit.NANOSECONDS)
+  public static int testarray(MyState state) {
+    return state.arrayImpl[state.index - state.OFFSET];
+  }
+
+
+  public static void main(String[] args) throws RunnerException {
+    Options options = new OptionsBuilder()
+        .include(Practice2.class.getSimpleName())
+        .measurementIterations(3)
+        .warmupIterations(1)
+        .mode(Mode.AverageTime)
+        .forks(1)
+        .shouldDoGC(true)
+        .build();
+    new Runner(options).run();
+  }
 }

@@ -7,12 +7,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class MyBlockingQueue<E> {
 
-  private Queue<E> queue;
-  private int capacity;
+  private final Queue<E> queue;
+  private final int capacity;
 
-  private ReentrantLock lock = new ReentrantLock();
-  private Condition notEmpty = lock.newCondition();
-  private Condition notFull = lock.newCondition();
+  private final ReentrantLock lock = new ReentrantLock();
+  private final Condition notEmpty = lock.newCondition();
+  private final Condition notFull = lock.newCondition();
 
   public MyBlockingQueue(int capacity) {
     queue = new LinkedList<>();

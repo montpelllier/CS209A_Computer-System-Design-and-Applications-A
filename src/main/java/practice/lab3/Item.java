@@ -5,25 +5,26 @@ package practice.lab3;
  * An item with a description and a part number.
  */
 public class Item /*implements Comparable<Item>*/ {
-    private final String description;
-    private final int partNumber;
 
-    public Item(String aDescription, int aPartNumber) {
-        description = aDescription;
-        partNumber = aPartNumber;
-    }
+  private final String description;
+  private final int partNumber;
 
-    public String getDescription() {
-        return description;
-    }
+  public Item(String aDescription, int aPartNumber) {
+    description = aDescription;
+    partNumber = aPartNumber;
+  }
 
-    public int getPartNumber() {
-        return partNumber;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public String toString() {
-        return "[no=" + partNumber + ", desc=" + description + "]";
-    }
+  public int getPartNumber() {
+    return partNumber;
+  }
+
+  public String toString() {
+    return "[no=" + partNumber + ", desc=" + description + "]";
+  }
 
 //   public int compareTo(Item other)
 //   {

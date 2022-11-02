@@ -10,10 +10,10 @@ import java.util.Scanner;
  */
 public class BankService implements Runnable {
 
-  private Socket s;
+  private final Socket s;
   private Scanner in;
   private PrintWriter out;
-  private Bank bank;
+  private final Bank bank;
 
   /**
    * Constructs a service object that processes commands from a socket for a bank.

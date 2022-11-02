@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class SMTPDemo {
 
-  public static void main(String args[]) throws IOException {
+  public static void main(String[] args) throws IOException {
     Socket socket = new Socket("smtp.sustech.edu.cn", 25);
     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);

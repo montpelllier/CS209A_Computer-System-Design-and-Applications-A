@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class FileTypeParser {
+
   public static byte[] png = int2Bytes(0x89504e47);
   public static byte[] zip = int2Bytes(0x504b0304);
   public static byte[] clazz = int2Bytes(0xcafebabe);
@@ -12,7 +13,7 @@ public class FileTypeParser {
   public static void main(String[] args) {
     for (String arg : args) {
       System.out.println("Filename: " + arg);
-      String path = "src/main/java/practice/lab5/" + arg;
+      String path = "src/main/resources/lab5/" + arg;
       try (FileInputStream fis = new FileInputStream(path)) {
         byte[] header = new byte[4];
         int len = fis.read(header, 0, 4);

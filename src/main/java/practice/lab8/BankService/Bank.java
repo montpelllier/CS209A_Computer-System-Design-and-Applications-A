@@ -5,7 +5,7 @@ package practice.lab8.BankService;
  */
 public class Bank {
 
-  private BankAccount[] accounts;
+  private final BankAccount[] accounts;
 
   /**
    * Constructs a bank account with a given number of accounts.
