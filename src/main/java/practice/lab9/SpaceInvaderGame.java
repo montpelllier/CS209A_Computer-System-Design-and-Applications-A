@@ -10,17 +10,19 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SpaceInvaderGame extends Application {
 
     private Pane root = new Pane();
 
+    private Random random = new Random();
 
-    private Sprite player = new Sprite(300, 750, 40, 40, "player", Color.BLUE);
+    private Sprite player = new Sprite(300, 550, 40, 40, "player", Color.BLUE);
 
     private Parent createContent() {
-        root.setPrefSize(600, 800);
+        root.setPrefSize(600, 700);
 
         root.getChildren().add(player);
 
@@ -66,17 +68,25 @@ public class SpaceInvaderGame extends Application {
                     }
 
                     break;
-
                 case "playerbullet":
-
-                    // TODO player's bullet should move up
-                    // TODO should also check whether the bullet hits each enemy
-
+                    // player's bullet move up
+                    s.moveUp();
+                    // check whether the bullet hits each enemy
+                    sprites().forEach(sprite -> {
+                        if (sprite.type.equals("enemy") && s.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
+                            sprite.dead = true; // enemy is dead
+                            s.dead = true; // bullet is dead
+                        }
+                    });
                     break;
 
                 case "enemy":
-                    // TODO enemies should shoot with random intervals
-                    shoot(s);
+                    // enemies shoot with random intervals
+                    if (s.waitTime > 0) {
+                        s.waitTime--;
+                    } else if (random.nextInt() % 10 == 0) {
+                        shoot(s);
+                    }
                     break;
             }
         });
@@ -91,8 +101,8 @@ public class SpaceInvaderGame extends Application {
 
     private void shoot(Sprite who) {
         // a rectangle with width 5, which looks like a bullet
-        Sprite s = new Sprite((int) who.getTranslateX() + 20, (int) who.getTranslateY(), 5, 20, who.type + "bullet", Color.BLACK);
-
+        Sprite s = new Sprite((int) who.getTranslateX() + 10, (int) who.getTranslateY(), 5, 20, who.type + "bullet", Color.BLACK);
+        who.waitTime = 120;
         root.getChildren().add(s);
     }
 
@@ -127,6 +137,7 @@ public class SpaceInvaderGame extends Application {
     private static class Sprite extends Rectangle {
         boolean dead = false;
         final String type;
+        public int waitTime;
 
         Sprite(int x, int y, int w, int h, String type, Color color) {
             super(w, h, color);
